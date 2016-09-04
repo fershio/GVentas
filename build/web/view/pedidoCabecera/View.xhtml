@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PedidoCabeceraViewDlg" widgetVar="PedidoCabeceraViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPedidoCabeceraTitle}">
+            <h:form id="PedidoCabeceraViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pedidoCabeceraController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPedidoCabeceraLabel_numeroPedido}"/>
+                        <h:outputText value="#{pedidoCabeceraController.selected.numeroPedido}" title="#{bundle.ViewPedidoCabeceraTitle_numeroPedido}"/>
+                        <h:outputText value="#{bundle.ViewPedidoCabeceraLabel_fechaPedido}"/>
+                        <h:outputText value="#{pedidoCabeceraController.selected.fechaPedido}" title="#{bundle.ViewPedidoCabeceraTitle_fechaPedido}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPedidoCabeceraLabel_codigoVendedor}"/>
+                        <h:outputText value="#{pedidoCabeceraController.selected.codigoVendedor}" title="#{bundle.ViewPedidoCabeceraTitle_codigoVendedor}"/>
+                        <h:outputText value="#{bundle.ViewPedidoCabeceraLabel_importeGravado}"/>
+                        <h:outputText value="#{pedidoCabeceraController.selected.importeGravado}" title="#{bundle.ViewPedidoCabeceraTitle_importeGravado}"/>
+                        <h:outputText value="#{bundle.ViewPedidoCabeceraLabel_importeIva}"/>
+                        <h:outputText value="#{pedidoCabeceraController.selected.importeIva}" title="#{bundle.ViewPedidoCabeceraTitle_importeIva}"/>
+                        <h:outputText value="#{bundle.ViewPedidoCabeceraLabel_importeExento}"/>
+                        <h:outputText value="#{pedidoCabeceraController.selected.importeExento}" title="#{bundle.ViewPedidoCabeceraTitle_importeExento}"/>
+                        <h:outputText value="#{bundle.ViewPedidoCabeceraLabel_importeTotal}"/>
+                        <h:outputText value="#{pedidoCabeceraController.selected.importeTotal}" title="#{bundle.ViewPedidoCabeceraTitle_importeTotal}"/>
+                        <h:outputText value="#{bundle.ViewPedidoCabeceraLabel_codigoCliente}"/>
+                        <h:outputText value="#{pedidoCabeceraController.selected.codigoCliente}" title="#{bundle.ViewPedidoCabeceraTitle_codigoCliente}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PedidoCabeceraViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

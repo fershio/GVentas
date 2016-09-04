@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PresupuestoCabeceraCreateDlg" widgetVar="PresupuestoCabeceraCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreatePresupuestoCabeceraTitle}">
+            <h:form id="PresupuestoCabeceraCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{presupuestoCabeceraController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreatePresupuestoCabeceraLabel_numeroPresupuesto}" for="numeroPresupuesto" />
+                        <p:inputText id="numeroPresupuesto" value="#{presupuestoCabeceraController.selected.numeroPresupuesto}" title="#{bundle.CreatePresupuestoCabeceraTitle_numeroPresupuesto}" required="true" requiredMessage="#{bundle.CreatePresupuestoCabeceraRequiredMessage_numeroPresupuesto}"/>
+                        <p:outputLabel value="#{bundle.CreatePresupuestoCabeceraLabel_fechaPresupuesto}" for="fechaPresupuesto" />
+                        <p:calendar id="fechaPresupuesto" pattern="MM/dd/yyyy" value="#{presupuestoCabeceraController.selected.fechaPresupuesto}" title="#{bundle.EditPresupuestoCabeceraTitle_fechaPresupuesto}" required="true" requiredMessage="#{bundle.EditPresupuestoCabeceraRequiredMessage_fechaPresupuesto}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreatePresupuestoCabeceraLabel_totalPresupuesto}" for="totalPresupuesto" />
+                        <p:inputText id="totalPresupuesto" value="#{presupuestoCabeceraController.selected.totalPresupuesto}" title="#{bundle.CreatePresupuestoCabeceraTitle_totalPresupuesto}" required="true" requiredMessage="#{bundle.CreatePresupuestoCabeceraRequiredMessage_totalPresupuesto}"/>
+                        <p:outputLabel value="#{bundle.CreatePresupuestoCabeceraLabel_codigoCliente}" for="codigoCliente" />
+                        <p:selectOneMenu id="codigoCliente" value="#{presupuestoCabeceraController.selected.codigoCliente}" required="true" requiredMessage="#{bundle.EditPresupuestoCabeceraRequiredMessage_codigoCliente}">
+                            <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
+                                           var="codigoClienteItem"
+                                           itemValue="#{codigoClienteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{presupuestoCabeceraController.create}" value="#{bundle.Save}" update="display,:PresupuestoCabeceraListForm:datalist,:growl" oncomplete="handleSubmit(args,'PresupuestoCabeceraCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PresupuestoCabeceraCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

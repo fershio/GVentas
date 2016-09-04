@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VentaDetalleEditDlg" widgetVar="VentaDetalleEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditVentaDetalleTitle}">
+            <h:form id="VentaDetalleEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ventaDetalleController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditVentaDetalleLabel_precioVenta}" for="precioVenta" />
+                        <p:inputText id="precioVenta" value="#{ventaDetalleController.selected.precioVenta}" title="#{bundle.EditVentaDetalleTitle_precioVenta}" required="true" requiredMessage="#{bundle.EditVentaDetalleRequiredMessage_precioVenta}"/>
+                        <p:outputLabel value="#{bundle.EditVentaDetalleLabel_cantidad}" for="cantidad" />
+                        <p:inputText id="cantidad" value="#{ventaDetalleController.selected.cantidad}" title="#{bundle.EditVentaDetalleTitle_cantidad}" required="true" requiredMessage="#{bundle.EditVentaDetalleRequiredMessage_cantidad}"/>
+                        <p:outputLabel value="#{bundle.EditVentaDetalleLabel_importeGravado}" for="importeGravado" />
+                        <p:inputText id="importeGravado" value="#{ventaDetalleController.selected.importeGravado}" title="#{bundle.EditVentaDetalleTitle_importeGravado}" required="true" requiredMessage="#{bundle.EditVentaDetalleRequiredMessage_importeGravado}"/>
+                        <p:outputLabel value="#{bundle.EditVentaDetalleLabel_importeIva}" for="importeIva" />
+                        <p:inputText id="importeIva" value="#{ventaDetalleController.selected.importeIva}" title="#{bundle.EditVentaDetalleTitle_importeIva}" required="true" requiredMessage="#{bundle.EditVentaDetalleRequiredMessage_importeIva}"/>
+                        <p:outputLabel value="#{bundle.EditVentaDetalleLabel_importeExento}" for="importeExento" />
+                        <p:inputText id="importeExento" value="#{ventaDetalleController.selected.importeExento}" title="#{bundle.EditVentaDetalleTitle_importeExento}" required="true" requiredMessage="#{bundle.EditVentaDetalleRequiredMessage_importeExento}"/>
+                        <p:outputLabel value="#{bundle.EditVentaDetalleLabel_importeTotal}" for="importeTotal" />
+                        <p:inputText id="importeTotal" value="#{ventaDetalleController.selected.importeTotal}" title="#{bundle.EditVentaDetalleTitle_importeTotal}" required="true" requiredMessage="#{bundle.EditVentaDetalleRequiredMessage_importeTotal}"/>
+                        <p:outputLabel value="#{bundle.EditVentaDetalleLabel_producto}" for="producto" />
+                        <p:selectOneMenu id="producto" value="#{ventaDetalleController.selected.producto}" required="true" requiredMessage="#{bundle.EditVentaDetalleRequiredMessage_producto}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
+                                           var="productoItem"
+                                           itemValue="#{productoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditVentaDetalleLabel_ventaCabecera}" for="ventaCabecera" />
+                        <p:selectOneMenu id="ventaCabecera" value="#{ventaDetalleController.selected.ventaCabecera}" required="true" requiredMessage="#{bundle.EditVentaDetalleRequiredMessage_ventaCabecera}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ventaCabeceraController.itemsAvailableSelectOne}"
+                                           var="ventaCabeceraItem"
+                                           itemValue="#{ventaCabeceraItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ventaDetalleController.update}" value="#{bundle.Save}" update="display,:VentaDetalleListForm:datalist,:growl" oncomplete="handleSubmit(args, 'VentaDetalleEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VentaDetalleEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

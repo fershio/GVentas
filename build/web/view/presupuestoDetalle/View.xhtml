@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PresupuestoDetalleViewDlg" widgetVar="PresupuestoDetalleViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPresupuestoDetalleTitle}">
+            <h:form id="PresupuestoDetalleViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{presupuestoDetalleController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPresupuestoDetalleLabel_cantidad}"/>
+                        <h:outputText value="#{presupuestoDetalleController.selected.cantidad}" title="#{bundle.ViewPresupuestoDetalleTitle_cantidad}"/>
+                        <h:outputText value="#{bundle.ViewPresupuestoDetalleLabel_precioPresupuesto}"/>
+                        <h:outputText value="#{presupuestoDetalleController.selected.precioPresupuesto}" title="#{bundle.ViewPresupuestoDetalleTitle_precioPresupuesto}"/>
+                        <h:outputText value="#{bundle.ViewPresupuestoDetalleLabel_total}"/>
+                        <h:outputText value="#{presupuestoDetalleController.selected.total}" title="#{bundle.ViewPresupuestoDetalleTitle_total}"/>
+                        <h:outputText value="#{bundle.ViewPresupuestoDetalleLabel_presupuestoCabecera}"/>
+                        <h:outputText value="#{presupuestoDetalleController.selected.presupuestoCabecera}" title="#{bundle.ViewPresupuestoDetalleTitle_presupuestoCabecera}"/>
+                        <h:outputText value="#{bundle.ViewPresupuestoDetalleLabel_producto}"/>
+                        <h:outputText value="#{presupuestoDetalleController.selected.producto}" title="#{bundle.ViewPresupuestoDetalleTitle_producto}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PresupuestoDetalleViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

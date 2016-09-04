@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListVentaCabeceraTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="VentaCabeceraListForm">
+                <p:panel header="#{bundle.ListVentaCabeceraTitle}">
+                    <p:dataTable id="datalist" value="#{ventaCabeceraController.items}" var="item"
+                                 selectionMode="single" selection="#{ventaCabeceraController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.numeroFactura}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVentaCabeceraTitle_numeroFactura}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeroFactura}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVentaCabeceraTitle_fechaVenta}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaVenta}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVentaCabeceraTitle_condicionPago}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.condicionPago}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVentaCabeceraTitle_importeGravado}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.importeGravado}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVentaCabeceraTitle_importeIva}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.importeIva}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVentaCabeceraTitle_importeExento}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.importeExento}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVentaCabeceraTitle_importeTotal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.importeTotal}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVentaCabeceraTitle_estadoVenta}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.estadoVenta}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVentaCabeceraTitle_codigoCliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigoCliente}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVentaCabeceraTitle_numeroPedido}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numeroPedido}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListVentaCabeceraTitle_codigoVendedor}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.codigoVendedor}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ventaCabeceraController.prepareCreate}" update=":VentaCabeceraCreateForm" oncomplete="PF('VentaCabeceraCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":VentaCabeceraViewForm" oncomplete="PF('VentaCabeceraViewDialog').show()" disabled="#{empty ventaCabeceraController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":VentaCabeceraEditForm" oncomplete="PF('VentaCabeceraEditDialog').show()" disabled="#{empty ventaCabeceraController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{ventaCabeceraController.destroy}" update=":growl,datalist" disabled="#{empty ventaCabeceraController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

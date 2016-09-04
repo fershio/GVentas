@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VentaCabeceraViewDlg" widgetVar="VentaCabeceraViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewVentaCabeceraTitle}">
+            <h:form id="VentaCabeceraViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ventaCabeceraController.selected != null}">
+                        <h:outputText value="#{bundle.ViewVentaCabeceraLabel_numeroFactura}"/>
+                        <h:outputText value="#{ventaCabeceraController.selected.numeroFactura}" title="#{bundle.ViewVentaCabeceraTitle_numeroFactura}"/>
+                        <h:outputText value="#{bundle.ViewVentaCabeceraLabel_fechaVenta}"/>
+                        <h:outputText value="#{ventaCabeceraController.selected.fechaVenta}" title="#{bundle.ViewVentaCabeceraTitle_fechaVenta}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewVentaCabeceraLabel_condicionPago}"/>
+                        <h:outputText value="#{ventaCabeceraController.selected.condicionPago}" title="#{bundle.ViewVentaCabeceraTitle_condicionPago}"/>
+                        <h:outputText value="#{bundle.ViewVentaCabeceraLabel_importeGravado}"/>
+                        <h:outputText value="#{ventaCabeceraController.selected.importeGravado}" title="#{bundle.ViewVentaCabeceraTitle_importeGravado}"/>
+                        <h:outputText value="#{bundle.ViewVentaCabeceraLabel_importeIva}"/>
+                        <h:outputText value="#{ventaCabeceraController.selected.importeIva}" title="#{bundle.ViewVentaCabeceraTitle_importeIva}"/>
+                        <h:outputText value="#{bundle.ViewVentaCabeceraLabel_importeExento}"/>
+                        <h:outputText value="#{ventaCabeceraController.selected.importeExento}" title="#{bundle.ViewVentaCabeceraTitle_importeExento}"/>
+                        <h:outputText value="#{bundle.ViewVentaCabeceraLabel_importeTotal}"/>
+                        <h:outputText value="#{ventaCabeceraController.selected.importeTotal}" title="#{bundle.ViewVentaCabeceraTitle_importeTotal}"/>
+                        <h:outputText value="#{bundle.ViewVentaCabeceraLabel_estadoVenta}"/>
+                        <h:outputText value="#{ventaCabeceraController.selected.estadoVenta}" title="#{bundle.ViewVentaCabeceraTitle_estadoVenta}"/>
+                        <h:outputText value="#{bundle.ViewVentaCabeceraLabel_codigoCliente}"/>
+                        <h:outputText value="#{ventaCabeceraController.selected.codigoCliente}" title="#{bundle.ViewVentaCabeceraTitle_codigoCliente}"/>
+                        <h:outputText value="#{bundle.ViewVentaCabeceraLabel_numeroPedido}"/>
+                        <h:outputText value="#{ventaCabeceraController.selected.numeroPedido}" title="#{bundle.ViewVentaCabeceraTitle_numeroPedido}"/>
+                        <h:outputText value="#{bundle.ViewVentaCabeceraLabel_codigoVendedor}"/>
+                        <h:outputText value="#{ventaCabeceraController.selected.codigoVendedor}" title="#{bundle.ViewVentaCabeceraTitle_codigoVendedor}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="VentaCabeceraViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

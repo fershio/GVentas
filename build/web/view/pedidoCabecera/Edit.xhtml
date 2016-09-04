@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PedidoCabeceraEditDlg" widgetVar="PedidoCabeceraEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditPedidoCabeceraTitle}">
+            <h:form id="PedidoCabeceraEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{pedidoCabeceraController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditPedidoCabeceraLabel_numeroPedido}" for="numeroPedido" />
+                        <p:inputText id="numeroPedido" value="#{pedidoCabeceraController.selected.numeroPedido}" title="#{bundle.EditPedidoCabeceraTitle_numeroPedido}" required="true" requiredMessage="#{bundle.EditPedidoCabeceraRequiredMessage_numeroPedido}"/>
+                        <p:outputLabel value="#{bundle.EditPedidoCabeceraLabel_fechaPedido}" for="fechaPedido" />
+                        <p:calendar id="fechaPedido" pattern="MM/dd/yyyy" value="#{pedidoCabeceraController.selected.fechaPedido}" title="#{bundle.EditPedidoCabeceraTitle_fechaPedido}" required="true" requiredMessage="#{bundle.EditPedidoCabeceraRequiredMessage_fechaPedido}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditPedidoCabeceraLabel_codigoVendedor}" for="codigoVendedor" />
+                        <p:inputText id="codigoVendedor" value="#{pedidoCabeceraController.selected.codigoVendedor}" title="#{bundle.EditPedidoCabeceraTitle_codigoVendedor}" required="true" requiredMessage="#{bundle.EditPedidoCabeceraRequiredMessage_codigoVendedor}"/>
+                        <p:outputLabel value="#{bundle.EditPedidoCabeceraLabel_importeGravado}" for="importeGravado" />
+                        <p:inputText id="importeGravado" value="#{pedidoCabeceraController.selected.importeGravado}" title="#{bundle.EditPedidoCabeceraTitle_importeGravado}" required="true" requiredMessage="#{bundle.EditPedidoCabeceraRequiredMessage_importeGravado}"/>
+                        <p:outputLabel value="#{bundle.EditPedidoCabeceraLabel_importeIva}" for="importeIva" />
+                        <p:inputText id="importeIva" value="#{pedidoCabeceraController.selected.importeIva}" title="#{bundle.EditPedidoCabeceraTitle_importeIva}" required="true" requiredMessage="#{bundle.EditPedidoCabeceraRequiredMessage_importeIva}"/>
+                        <p:outputLabel value="#{bundle.EditPedidoCabeceraLabel_importeExento}" for="importeExento" />
+                        <p:inputText id="importeExento" value="#{pedidoCabeceraController.selected.importeExento}" title="#{bundle.EditPedidoCabeceraTitle_importeExento}" required="true" requiredMessage="#{bundle.EditPedidoCabeceraRequiredMessage_importeExento}"/>
+                        <p:outputLabel value="#{bundle.EditPedidoCabeceraLabel_importeTotal}" for="importeTotal" />
+                        <p:inputText id="importeTotal" value="#{pedidoCabeceraController.selected.importeTotal}" title="#{bundle.EditPedidoCabeceraTitle_importeTotal}" required="true" requiredMessage="#{bundle.EditPedidoCabeceraRequiredMessage_importeTotal}"/>
+                        <p:outputLabel value="#{bundle.EditPedidoCabeceraLabel_codigoCliente}" for="codigoCliente" />
+                        <p:selectOneMenu id="codigoCliente" value="#{pedidoCabeceraController.selected.codigoCliente}" required="true" requiredMessage="#{bundle.EditPedidoCabeceraRequiredMessage_codigoCliente}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
+                                           var="codigoClienteItem"
+                                           itemValue="#{codigoClienteItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{pedidoCabeceraController.update}" value="#{bundle.Save}" update="display,:PedidoCabeceraListForm:datalist,:growl" oncomplete="handleSubmit(args, 'PedidoCabeceraEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="PedidoCabeceraEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

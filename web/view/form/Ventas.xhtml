@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template/plantilla.xhtml">
+
+            <ui:define name="content">
+                <h:form id="frmVentas"> 
+                    <h:panelGrid id="pnlButton" columns="3" cellpadding="5">
+                        <p:commandButton value="Nueva Venta" icon="ui-icon-circle-plus" 
+                                         actionListener="#{ventasController.nuevaVenta}" 
+                                         update="display :frmVentas" 
+                                         oncomplete="handleComplete(xhr, status, args)"
+                                         disabled="#{ventasController.disabledNuevo}"/>
+                        <p:commandButton value="Cancelar Venta" icon="ui-icon-circle-close" 
+                                         actionListener="#{ventasController.cancelarVenta}" 
+                                         update="display :frmVentas:dataVentas pnlDetalle" 
+                                         disabled="#{ventasController.disabledCancelar}"/>
+                        <p:commandButton value="Guardar Venta" icon="ui-icon-save" 
+                                         actionListener="#{ventasController.guardarFactura}"
+                                         update ="pnlButton display :frmVentas:dataVentas pnlDetalle"
+                                         disabled="#{ventasController.disabledFactura}"/>
+                    </h:panelGrid>
+                    <p:fieldset id="display" legend="Ventas" >
+                        <h:panelGrid columns="4" cellpadding="4">
+                            <p:outputLabel value="Cliente"/>
+                            <p:selectOneMenu id="cboCliente"
+                                             value="#{ventasController.codCliente}"
+                                             filter="true" 
+                                             disabled="#{ventasController.disabled}">
+                               
+                                <f:selectItems value="#{clienteController.items}" 
+                                               var="cl"
+                                               itemLabel="#{cl.razonSocial}" 
+                                               itemValue="#{cl.codigoCliente}" 
+                                                />
+                                    
+                                <f:selectItem  itemLabel="SELECCIONAR" 
+                                               itemValue="#{null}" 
+                                               noSelectionOption="true"/>
+                                <p:ajax listener="#{ventasController.obtenerDatosClientes}" 
+                                        update="txtDireccion txtRUC txtTelefono" 
+                                        immediate="true" 
+                                          />
+                                
+                            </p:selectOneMenu>
+                            
+                            <p:outputLabel value="Fecha"/>
+                            <p:calendar id="dtpFecha" value="#{ventasController.selected.fechaVenta}" 
+                                        pattern="dd/MM/yyyy" mask="true" 
+                                        disabled="#{ventasController.disabled}" />
+                            
+                            <p:outputLabel value="Dirección" />
+                            <p:inputText id="txtDireccion" 
+                                         value="#{ventasController.direccionCliente}" 
+                                         disabled="true"/>
+
+                            <p:outputLabel value="Vendedor"/>
+                            <p:selectOneMenu id="cboVendedor" 
+                                             filter="true" 
+                                             value="#{ventasController.codVendedor}" 
+                                             disabled="#{ventasController.disabled}">
+                                
+                                <f:selectItems value="#{vendedorController.items}" var="vd" 
+                                               itemLabel="#{vd.nombreVendedor}" 
+                                               itemValue="#{vd.codigoVendedor}"/>
+                                
+                                <f:selectItem itemLabel="SELECCIONAR" itemValue="#{null}" noSelectionOption="true"/> 
+                            </p:selectOneMenu>
+                            
+                            <p:outputLabel value="RUC"/>
+                            <p:inputText id="txtRUC" value="#{ventasController.ruc}" disabled="true"/>
+                            
+                            <p:outputLabel value="Teléfono"/>
+                            <p:inputText id="txtTelefono" value="#{ventasController.telefono}" disabled="true"/>
+                            
+                            <p:outputLabel value="Venta"/>
+                            <p:selectOneButton value="#{ventasController.selected.condicionPago}"
+                                disabled="#{ventasController.disabled}" 
+                                required="false" >
+                                <f:selectItem itemLabel="Contado" itemValue="0"/>
+                                <f:selectItem itemLabel="Crédito" itemValue="1"/>
+                            </p:selectOneButton>
+                            
+                            <p:outputLabel value="Factura Nº"/>
+                            <p:inputMask mask="999-999-9999999" value="#{ventasController.selected.numeroFactura}" disabled="true"/>
+                            
+                            <p:outputLabel/>
+                            <p:commandButton value="Agregar Productos" icon="ui-icon-clipboard" 
+                                             actionListener="#{ventasController.agregarDetalle}"
+                                             update="display,pnlDetalle,:frmVentas:dataVentas"
+                                             disabled="#{ventasController.disabled}"/>
+                            
+                        </h:panelGrid>  
+                    </p:fieldset >
+                    <p:fieldset legend="Detalle Ventas">
+                        <h:panelGrid id="pnlDetalle" columns="8" cellpadding="5">
+                            <p:commandButton value="Nuevo" icon="ui-icon-add"
+                                             actionListener="#{ventasController.nuevoDetalle}"
+                                             update="pnlDetalle"
+                                             disabled="#{ventasController.disabledNuevoProducto}"/>
+                            <p:outputLabel value="Producto"/>
+                            <p:selectOneMenu id="cboProducto" 
+                                             value="#{ventasController.codProducto}"
+                                             disabled="#{ventasController.disabledDetalle}" >
+                                <f:selectItems value="#{productoController.items}"
+                                               var="pr"
+                                               itemLabel="#{pr.descripcionProducto}" 
+                                               itemValue="#{pr.codigoProducto}" />
+                                <f:selectItem itemLabel="SELECCIONAR" itemValue="#{null}" noSelectionOption="true"/>
+                                <p:ajax update="txtPrecio" listener="#{ventasController.obtenerDatosProducto}"/>
+                            </p:selectOneMenu> 
+                            
+                            <p:outputLabel value="Precio"/>
+                            <p:inputText id="txtPrecio" type="currency"
+                                         value="#{ventasController.selectedDetalle.precioVenta}"
+                                         disabled="true"/>
+                        
+                            <p:outputLabel value="Cantidad"/>
+                            <p:spinner id="txtCantidad"
+                                       value="#{ventasController.selectedDetalle.cantidad}"
+                                       
+                                       min="1"
+                                       max="200"
+                                       disabled="#{ventasController.disabledDetalle}"/>
+                            
+                            <p:commandButton value="Guardar" icon="ui-icon-plus" 
+                                             actionListener="#{ventasController.agregarArticulos}"
+                                             update="pnlDetalle pnlButton :frmVentas:dataVentas"
+                                             disabled="#{ventasController.disabledDetalle}">
+
+                            </p:commandButton>
+                        </h:panelGrid> 
+                        <h:panelGrid>
+                            <p:dataTable id="dataVentas" 
+                                         value="#{ventasController.itemsDet}"
+                                         var="item"
+                                         selectionMode="single" 
+                                        
+                                         rowKey="#{item.ventaDetallePK}"
+                                         rows="7"
+                                         disabledSelection="#{ventasController.disabledDetalle}">
+                                <p:columnGroup type="header">
+                                    <p:row>
+                                        <p:column rowspan="2" headerText="Cantidad"/>
+                                        <p:column rowspan="2" headerText="Descripción"/>
+                                        <p:column rowspan="2" headerText="Precio Unitario"/>
+                                        <p:column colspan="3" headerText="Valor de la Venta"/>
+                                    </p:row>
+                                    <p:row>
+                                        <p:column headerText="Exentas"/>
+                                        <p:column headerText="5%"/>
+                                        <p:column headerText="10%"/>
+                                    </p:row>
+                                </p:columnGroup>
+                                <p:column>
+                                    <h:outputLabel value="#{item.cantidad}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputLabel value="#{item.producto.descripcionProducto}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputLabel value="#{item.precioVenta}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputLabel value="#{item.importeExento}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputLabel value="#{item.importeIva5+item.importeGravado}"/>
+                                </p:column>
+                                <p:column>
+                                    <h:outputLabel value="#{item.importeIva10+item.importeGravado}"/>
+                                </p:column>
+                                <p:columnGroup type="footer">
+                                    <p:column colspan="2" style="text-align:right" footerText="Totales:"/>
+                                </p:columnGroup>
+                            </p:dataTable>
+                        </h:panelGrid>
+                    </p:fieldset>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+    </body>
+</html>

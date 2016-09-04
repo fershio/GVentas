@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="PresupuestoCabeceraViewDlg" widgetVar="PresupuestoCabeceraViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewPresupuestoCabeceraTitle}">
+            <h:form id="PresupuestoCabeceraViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{presupuestoCabeceraController.selected != null}">
+                        <h:outputText value="#{bundle.ViewPresupuestoCabeceraLabel_numeroPresupuesto}"/>
+                        <h:outputText value="#{presupuestoCabeceraController.selected.numeroPresupuesto}" title="#{bundle.ViewPresupuestoCabeceraTitle_numeroPresupuesto}"/>
+                        <h:outputText value="#{bundle.ViewPresupuestoCabeceraLabel_fechaPresupuesto}"/>
+                        <h:outputText value="#{presupuestoCabeceraController.selected.fechaPresupuesto}" title="#{bundle.ViewPresupuestoCabeceraTitle_fechaPresupuesto}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewPresupuestoCabeceraLabel_totalPresupuesto}"/>
+                        <h:outputText value="#{presupuestoCabeceraController.selected.totalPresupuesto}" title="#{bundle.ViewPresupuestoCabeceraTitle_totalPresupuesto}"/>
+                        <h:outputText value="#{bundle.ViewPresupuestoCabeceraLabel_codigoCliente}"/>
+                        <h:outputText value="#{presupuestoCabeceraController.selected.codigoCliente}" title="#{bundle.ViewPresupuestoCabeceraTitle_codigoCliente}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="PresupuestoCabeceraViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="VentaCabeceraEditDlg" widgetVar="VentaCabeceraEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditVentaCabeceraTitle}">
+            <h:form id="VentaCabeceraEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ventaCabeceraController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditVentaCabeceraLabel_numeroFactura}" for="numeroFactura" />
+                        <p:inputText id="numeroFactura" value="#{ventaCabeceraController.selected.numeroFactura}" title="#{bundle.EditVentaCabeceraTitle_numeroFactura}" required="true" requiredMessage="#{bundle.EditVentaCabeceraRequiredMessage_numeroFactura}"/>
+                        <p:outputLabel value="#{bundle.EditVentaCabeceraLabel_fechaVenta}" for="fechaVenta" />
+                        <p:calendar id="fechaVenta" pattern="MM/dd/yyyy" value="#{ventaCabeceraController.selected.fechaVenta}" title="#{bundle.EditVentaCabeceraTitle_fechaVenta}" required="true" requiredMessage="#{bundle.EditVentaCabeceraRequiredMessage_fechaVenta}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditVentaCabeceraLabel_condicionPago}" for="condicionPago" />
+                        <p:inputText id="condicionPago" value="#{ventaCabeceraController.selected.condicionPago}" title="#{bundle.EditVentaCabeceraTitle_condicionPago}" required="true" requiredMessage="#{bundle.EditVentaCabeceraRequiredMessage_condicionPago}"/>
+                        <p:outputLabel value="#{bundle.EditVentaCabeceraLabel_importeGravado}" for="importeGravado" />
+                        <p:inputText id="importeGravado" value="#{ventaCabeceraController.selected.importeGravado}" title="#{bundle.EditVentaCabeceraTitle_importeGravado}" required="true" requiredMessage="#{bundle.EditVentaCabeceraRequiredMessage_importeGravado}"/>
+                        <p:outputLabel value="#{bundle.EditVentaCabeceraLabel_importeIva}" for="importeIva" />
+                        <p:inputText id="importeIva" value="#{ventaCabeceraController.selected.importeIva}" title="#{bundle.EditVentaCabeceraTitle_importeIva}" required="true" requiredMessage="#{bundle.EditVentaCabeceraRequiredMessage_importeIva}"/>
+                        <p:outputLabel value="#{bundle.EditVentaCabeceraLabel_importeExento}" for="importeExento" />
+                        <p:inputText id="importeExento" value="#{ventaCabeceraController.selected.importeExento}" title="#{bundle.EditVentaCabeceraTitle_importeExento}" required="true" requiredMessage="#{bundle.EditVentaCabeceraRequiredMessage_importeExento}"/>
+                        <p:outputLabel value="#{bundle.EditVentaCabeceraLabel_importeTotal}" for="importeTotal" />
+                        <p:inputText id="importeTotal" value="#{ventaCabeceraController.selected.importeTotal}" title="#{bundle.EditVentaCabeceraTitle_importeTotal}" required="true" requiredMessage="#{bundle.EditVentaCabeceraRequiredMessage_importeTotal}"/>
+                        <p:outputLabel value="#{bundle.EditVentaCabeceraLabel_estadoVenta}" for="estadoVenta" />
+                        <p:inputText id="estadoVenta" value="#{ventaCabeceraController.selected.estadoVenta}" title="#{bundle.EditVentaCabeceraTitle_estadoVenta}" required="true" requiredMessage="#{bundle.EditVentaCabeceraRequiredMessage_estadoVenta}"/>
+                        <p:outputLabel value="#{bundle.EditVentaCabeceraLabel_codigoCliente}" for="codigoCliente" />
+                        <p:selectOneMenu id="codigoCliente" value="#{ventaCabeceraController.selected.codigoCliente}" required="true" requiredMessage="#{bundle.EditVentaCabeceraRequiredMessage_codigoCliente}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"
+                                           var="codigoClienteItem"
+                                           itemValue="#{codigoClienteItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditVentaCabeceraLabel_numeroPedido}" for="numeroPedido" />
+                        <p:selectOneMenu id="numeroPedido" value="#{ventaCabeceraController.selected.numeroPedido}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{pedidoCabeceraController.itemsAvailableSelectOne}"
+                                           var="numeroPedidoItem"
+                                           itemValue="#{numeroPedidoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditVentaCabeceraLabel_codigoVendedor}" for="codigoVendedor" />
+                        <p:selectOneMenu id="codigoVendedor" value="#{ventaCabeceraController.selected.codigoVendedor}" required="true" requiredMessage="#{bundle.EditVentaCabeceraRequiredMessage_codigoVendedor}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{vendedorController.itemsAvailableSelectOne}"
+                                           var="codigoVendedorItem"
+                                           itemValue="#{codigoVendedorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{ventaCabeceraController.update}" value="#{bundle.Save}" update="display,:VentaCabeceraListForm:datalist,:growl" oncomplete="handleSubmit(args, 'VentaCabeceraEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="VentaCabeceraEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

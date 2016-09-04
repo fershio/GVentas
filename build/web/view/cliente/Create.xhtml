@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ClienteCreateDlg" widgetVar="ClienteCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateClienteTitle}">
+            <h:form id="ClienteCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{clienteController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_codigoCliente}" for="codigoCliente" />
+                        <p:inputText id="codigoCliente" value="#{clienteController.selected.codigoCliente}" title="#{bundle.CreateClienteTitle_codigoCliente}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_codigoCliente}"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_razonSocial}" for="razonSocial" />
+                        <p:inputText id="razonSocial" value="#{clienteController.selected.razonSocial}" title="#{bundle.CreateClienteTitle_razonSocial}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_razonSocial}"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_ruc}" for="ruc" />
+                        <p:inputText id="ruc" value="#{clienteController.selected.ruc}" title="#{bundle.CreateClienteTitle_ruc}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_ruc}"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_cedula}" for="cedula" />
+                        <p:inputText id="cedula" value="#{clienteController.selected.cedula}" title="#{bundle.CreateClienteTitle_cedula}" required="true" requiredMessage="#{bundle.CreateClienteRequiredMessage_cedula}"/>
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_direccion}" for="direccion" />
+                        <p:inputText id="direccion" value="#{clienteController.selected.direccion}" title="#{bundle.CreateClienteTitle_direccion}" />
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_telefono}" for="telefono" />
+                        <p:inputText id="telefono" value="#{clienteController.selected.telefono}" title="#{bundle.CreateClienteTitle_telefono}" />
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_longitud}" for="longitud" />
+                        <p:inputText id="longitud" value="#{clienteController.selected.longitud}" title="#{bundle.CreateClienteTitle_longitud}" />
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_latitud}" for="latitud" />
+                        <p:inputText id="latitud" value="#{clienteController.selected.latitud}" title="#{bundle.CreateClienteTitle_latitud}" />
+                        <p:outputLabel value="#{bundle.CreateClienteLabel_codigoVendedor}" for="codigoVendedor" />
+                        <p:selectOneMenu id="codigoVendedor" value="#{clienteController.selected.codigoVendedor}" required="true" requiredMessage="#{bundle.EditClienteRequiredMessage_codigoVendedor}">
+                            <f:selectItems value="#{vendedorController.itemsAvailableSelectOne}"
+                                           var="codigoVendedorItem"
+                                           itemValue="#{codigoVendedorItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{clienteController.create}" value="#{bundle.Save}" update="display,:ClienteListForm:datalist,:growl" oncomplete="handleSubmit(args,'ClienteCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ClienteCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
